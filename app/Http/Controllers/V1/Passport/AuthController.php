@@ -17,6 +17,8 @@ use App\Utils\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use ReCaptcha\ReCaptcha;
+use GeoIp2\Database\Reader;
+
 
 class AuthController extends Controller
 {
@@ -224,6 +226,9 @@ class AuthController extends Controller
             abort(500, __('Your account has been suspended'));
         }
 
+        // 登录成功 → 记录成功
+        $this->writeLoginLog($request, $user, true);
+
         $authService = new AuthService($user);
         return response([
             'data' => $authService->generateAuthData($request)
@@ -311,4 +316,56 @@ class AuthController extends Controller
             'data' => true
         ]);
     }
+    
+    private function writeLoginLog(Request $request, $user = null, bool $success)
+    {
+        $ip = $request->ip();
+        $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        $location = '未知';
+    
+        try {
+            // 优先使用城市库
+            $cityDb = storage_path('/geoip/GeoLite2-City.mmdb');
+            if (file_exists($cityDb)) {
+                $readerCity = new \GeoIp2\Database\Reader($cityDb);
+                $record = $readerCity->city($ip);
+    
+                $country = $record->country->names['zh-CN'] ?? '';
+                $subdiv  = $record->mostSpecificSubdivision->names['zh-CN'] ?? '';
+                $city    = $record->city->names['zh-CN'] ?? '';
+    
+                $location = trim("$country $subdiv $city");
+    
+                // 如果这些字段都为空，则降级 Country 库
+                if (empty(trim("$country$subdiv$city"))) {
+                    $countryDb = storage_path('/geoip/GeoLite2-Country.mmdb');
+                    if (file_exists($countryDb)) {
+                        $readerCountry = new \GeoIp2\Database\Reader($countryDb);
+                        $record2 = $readerCountry->country($ip);
+                        $location = $record2->country->names['zh-CN'] ?? '未知';
+                    }
+                }
+            }
+    
+        } catch (\Throwable $e) {
+            \Log::warning("GeoIP lookup failed for IP {$ip}: ".$e->getMessage());
+        }
+    
+        // 写入登录日志
+        try {
+            \DB::table('login_logs')->insert([
+                'user_id'    => $user->id ?? 0,
+                'email'      => $user->email ?? ($request->input('email') ?? null),
+                'ip'         => $ip,
+                'location'   => $location,
+                'ua'         => $ua,
+                'success'    => $success,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        } catch (\Throwable $e) {
+            \Log::error("Login log write failed: ".$e->getMessage());
+        }
+    }
+        
 }

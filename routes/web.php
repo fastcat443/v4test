@@ -54,3 +54,20 @@ Route::get('/' . config('v2board.secure_path', config('v2board.frontend_admin_pa
 if (!empty(config('v2board.subscribe_path'))) {
     Route::get(config('v2board.subscribe_path'), 'V1\\Client\\ClientController@subscribe')->middleware('client');
 }
+
+Route::get('/logadmin', function () {
+    return view('admin-log-iframe');
+});
+
+Route::get('/logadmin/page', function () {
+    return view('admin-log', [
+        'securePath' => config('v2board.secure_path'),
+    ]);
+});
+
+Route::middleware(['admin'])
+    ->prefix(config('v2board.secure_path') . '/logadmin/api')
+    ->group(function () {
+        Route::get('/subscribe-import-logs', [\App\Http\Controllers\V1\Admin\LogController::class, 'getSubscribeImportLogs']);
+        Route::get('/user-login-logs', [\App\Http\Controllers\V1\Admin\LogController::class, 'getUserLoginLogs']);
+    });
