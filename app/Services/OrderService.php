@@ -342,7 +342,8 @@ class OrderService
         $this->user->device_limit = $plan->device_limit;
         $this->user->plan_id = $plan->id;
         $this->user->group_id = $plan->group_id;
-        $this->user->expired_at = NULL;
+//        $this->user->expired_at = NULL;
+        $this->user->expired_at = strtotime('+12 months');
     }
 
     private function getTime($str, $timestamp)

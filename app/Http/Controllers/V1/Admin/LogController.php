@@ -40,7 +40,7 @@ class LogController extends Controller
         return response()->json([
             'page' => $logs->currentPage(),
             'columns' => [
-                 'email', 'ip', 'location', 'ua', 'created_at'
+                 'email', 'ip', 'host', 'location', 'ua', 'created_at'
             ],
             'rows' => $this->filterUserId($logs->items())
         ]);

@@ -321,42 +321,35 @@ class AuthController extends Controller
     {
         $ip = $request->ip();
         $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        $host = $request->header('X-Forwarded-Host') ?? $request->getHost(); // 👈 关键
         $location = '未知';
     
         try {
-            // 优先使用城市库
-            $cityDb = storage_path('/geoip/GeoLite2-City.mmdb');
-            if (file_exists($cityDb)) {
-                $readerCity = new \GeoIp2\Database\Reader($cityDb);
-                $record = $readerCity->city($ip);
+            $readerCity = new Reader(storage_path('/geoip/GeoLite2-City.mmdb'));
+            $record = $readerCity->city($ip);
     
-                $country = $record->country->names['zh-CN'] ?? '';
-                $subdiv  = $record->mostSpecificSubdivision->names['zh-CN'] ?? '';
-                $city    = $record->city->names['zh-CN'] ?? '';
+            $country = $record->country->names['zh-CN'] ?? '';
+            $subdiv  = $record->mostSpecificSubdivision->names['zh-CN'] ?? '';
+            $city    = $record->city->names['zh-CN'] ?? '';
     
-                $location = trim("$country $subdiv $city");
+            $location = trim("$country $subdiv $city");
     
-                // 如果这些字段都为空，则降级 Country 库
-                if (empty(trim("$country$subdiv$city"))) {
-                    $countryDb = storage_path('/geoip/GeoLite2-Country.mmdb');
-                    if (file_exists($countryDb)) {
-                        $readerCountry = new \GeoIp2\Database\Reader($countryDb);
-                        $record2 = $readerCountry->country($ip);
-                        $location = $record2->country->names['zh-CN'] ?? '未知';
-                    }
-                }
+            if (empty($location)) {
+                $readerCountry = new Reader(storage_path('/geoip/GeoLite2-Country.mmdb'));
+                $recordCountry = $readerCountry->country($ip);
+                $location = $recordCountry->country->names['zh-CN'] ?? '未知';
             }
     
         } catch (\Throwable $e) {
-            \Log::warning("GeoIP lookup failed for IP {$ip}: ".$e->getMessage());
+            \Log::warning("GeoIP lookup failed for IP {$ip}: " . $e->getMessage());
         }
     
-        // 写入登录日志
         try {
             \DB::table('login_logs')->insert([
                 'user_id'    => $user->id ?? 0,
                 'email'      => $user->email ?? ($request->input('email') ?? null),
                 'ip'         => $ip,
+                'host'       => $host,
                 'location'   => $location,
                 'ua'         => $ua,
                 'success'    => $success,
@@ -364,8 +357,8 @@ class AuthController extends Controller
                 'updated_at' => now(),
             ]);
         } catch (\Throwable $e) {
-            \Log::error("Login log write failed: ".$e->getMessage());
+            \Log::error("Login log write failed: " . $e->getMessage());
         }
     }
-        
+
 }
