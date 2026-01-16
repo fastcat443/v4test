@@ -195,46 +195,50 @@ class Shadowrocket
     {
         $userinfo = base64_encode('auto:' . $uuid . '@' . $server['host'] . ':' . $server['port']);
         $config = [
-            'tfo'     => 1,
-            'remark'  => $server['name'],
+            'tfo' => 1,
+            'remark' => $server['name'],
             'alterId' => 0
         ];
-
         if ($server['tls']) {
             $config['tls'] = 1;
             $tlsSettings = $server['tls_settings'] ?? ($server['tlsSettings'] ?? []);
             $config['allowInsecure'] = (int)($tlsSettings['allow_insecure'] ?? $tlsSettings['allowInsecure'] ?? 0);
             $config['peer'] = $tlsSettings['server_name'] ?? $tlsSettings['serverName'] ?? '';
         }
-
         if ($server['network'] === 'tcp') {
             $tcpSettings = $server['network_settings'] ?? ($server['networkSettings'] ?? []);
-            if (!empty($tcpSettings['header']['type']))
+            if (isset($tcpSettings['header']['type']) && !empty($tcpSettings['header']['type']))
                 $config['obfs'] = $tcpSettings['header']['type'];
-            if (!empty($tcpSettings['header']['request']['path'][0]))
+            if (isset($tcpSettings['header']['request']['path'][0]) && !empty($tcpSettings['header']['request']['path'][0]))
                 $config['path'] = $tcpSettings['header']['request']['path'][0];
-            if (!empty($tcpSettings['header']['request']['headers']['Host'][0]))
+            if (isset($tcpSettings['header']['request']['headers']['Host'][0]))
                 $config['obfsParam'] = $tcpSettings['header']['request']['headers']['Host'][0];
         }
-
         if ($server['network'] === 'ws') {
             $config['obfs'] = "websocket";
             $wsSettings = $server['network_settings'] ?? ($server['networkSettings'] ?? []);
-            if (!empty($wsSettings['path']))
+            if (isset($wsSettings['path']) && !empty($wsSettings['path']))
                 $config['path'] = $wsSettings['path'];
-            if (!empty($wsSettings['headers']['Host']))
+            if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                 $config['obfsParam'] = $wsSettings['headers']['Host'];
+            if (isset($wsSettings['security']))
+                $config['method'] = $wsSettings['security'];
         }
-
         if ($server['network'] === 'grpc') {
             $config['obfs'] = "grpc";
             $grpcSettings = $server['network_settings'] ?? ($server['networkSettings'] ?? []);
-            if (!empty($grpcSettings['serviceName']))
+            if (isset($grpcSettings['serviceName']) && !empty($grpcSettings['serviceName']))
                 $config['path'] = $grpcSettings['serviceName'];
-            $config['host'] = $config['peer'] ?? $server['host'];
+            if (isset($tlsSettings)) {
+                $config['host'] = $tlsSettings['server_name'] ?? $tlsSettings['serverName'] ?? '';
+            } else {
+                $config['host'] = $server['host'];
+            }
         }
-
         $query = http_build_query($config, '', '&', PHP_QUERY_RFC3986);
-        return "vmess://{$userinfo}?{$query}\r\n";
+        $uri = "vmess://{$userinfo}?{$query}";
+        $uri .= "\r\n";
+        return $uri;
     }
+
 }
