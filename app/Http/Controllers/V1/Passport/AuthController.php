@@ -17,8 +17,6 @@ use App\Utils\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use ReCaptcha\ReCaptcha;
-use GeoIp2\Database\Reader;
-
 
 class AuthController extends Controller
 {
@@ -225,14 +223,20 @@ class AuthController extends Controller
         if ($user->banned) {
             abort(500, __('Your account has been suspended'));
         }
-
-        // 登录成功 → 记录成功
-        $this->writeLoginLog($request, $user, true);
-
+        
+        // ⭐ 新增：仅记录“成功登录日志”（不影响主流程）
+        try {
+            app(\App\Services\LogService::class)
+                ->writeLoginLog($request, $user, 'success');
+        } catch (\Throwable $e) {
+            // 日志失败绝不能影响登录
+        }
+        
         $authService = new AuthService($user);
         return response([
             'data' => $authService->generateAuthData($request)
         ]);
+
     }
 
     public function token2Login(Request $request)
@@ -316,49 +320,4 @@ class AuthController extends Controller
             'data' => true
         ]);
     }
-    
-    private function writeLoginLog(Request $request, $user = null, bool $success)
-    {
-        $ip = $request->ip();
-        $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
-        $host = $request->header('X-Forwarded-Host') ?? $request->getHost(); // 👈 关键
-        $location = '未知';
-    
-        try {
-            $readerCity = new Reader(storage_path('/geoip/GeoLite2-City.mmdb'));
-            $record = $readerCity->city($ip);
-    
-            $country = $record->country->names['zh-CN'] ?? '';
-            $subdiv  = $record->mostSpecificSubdivision->names['zh-CN'] ?? '';
-            $city    = $record->city->names['zh-CN'] ?? '';
-    
-            $location = trim("$country $subdiv $city");
-    
-            if (empty($location)) {
-                $readerCountry = new Reader(storage_path('/geoip/GeoLite2-Country.mmdb'));
-                $recordCountry = $readerCountry->country($ip);
-                $location = $recordCountry->country->names['zh-CN'] ?? '未知';
-            }
-    
-        } catch (\Throwable $e) {
-            \Log::warning("GeoIP lookup failed for IP {$ip}: " . $e->getMessage());
-        }
-    
-        try {
-            \DB::table('login_logs')->insert([
-                'user_id'    => $user->id ?? 0,
-                'email'      => $user->email ?? ($request->input('email') ?? null),
-                'ip'         => $ip,
-                'host'       => $host,
-                'location'   => $location,
-                'ua'         => $ua,
-                'success'    => $success,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        } catch (\Throwable $e) {
-            \Log::error("Login log write failed: " . $e->getMessage());
-        }
-    }
-
 }

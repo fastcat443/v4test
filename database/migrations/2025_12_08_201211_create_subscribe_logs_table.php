@@ -26,7 +26,10 @@ class CreateSubscribeLogsTable extends Migration
             $table->string('ip', 64)->nullable()->index();
             $table->string('location', 64)->nullable();
             $table->string('ua', 512)->nullable();
-            $table->timestamps();
+            // ⭐ 只改这里：不用 timestamps()
+            $table->unsignedInteger('created_at')->index(); // 登录时间（Unix）
+            $table->unsignedInteger('updated_at')->index();
+
         });
     }
 

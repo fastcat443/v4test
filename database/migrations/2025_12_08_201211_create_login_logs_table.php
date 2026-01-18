@@ -6,34 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateLoginLogsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('login_logs', function (Blueprint $table) {
             $table->id();
-        
+
             $table->unsignedBigInteger('user_id')->index();
             $table->string('email', 191)->nullable()->index();
-        
+
             $table->string('ip', 64)->nullable()->index();
-            $table->string('location', 64)->nullable();  // 归属地
+            $table->string('location', 64)->nullable();   // 归属地
             $table->string('ua', 512)->nullable();        // User-Agent
-        
-            $table->boolean('success')->default(true)->index();  // 是否登录成功
-        
-            $table->timestamps();  // created_at = 登录时间
+
+            $table->boolean('success')->default(true)->index(); // 是否登录成功
+
+            // ⭐ 与 v2board 其他表保持一致：INT Unix 时间戳
+            $table->unsignedInteger('created_at')->index();
+            $table->unsignedInteger('updated_at')->index();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('login_logs');
