@@ -12,9 +12,9 @@ external-controller: 127.0.0.1:9090
 proxies:
 
 proxy-groups:
-  - { name: "SELECT", type: select, proxies: ["自动选择", "故障转移"] }
-  - { name: "自动选择", type: url-test, proxies: [], url: "http://www.gstatic.com/generate_204", interval: 86400 }
-  - { name: "故障转移", type: fallback, proxies: [], url: "http://www.gstatic.com/generate_204", interval: 7200 }
+  - { name: "SELECT", type: select, proxies: ["自动选择app", "故障转移app"] }
+  - { name: "自动选择app", type: url-test, proxies: [], url: "http://www.gstatic.com/generate_204", interval: 86400 }
+  - { name: "故障转移app", type: fallback, proxies: [], url: "http://www.gstatic.com/generate_204", interval: 7200 }
 
 rules:
   # 自定义规则

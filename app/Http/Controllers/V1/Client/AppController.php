@@ -61,6 +61,7 @@ class AppController extends Controller
             ->header('Content-Type', 'text/yaml');
     }
 
+/*
     public function getVersion(Request $request)
     {
         if (strpos($request->header('user-agent'), 'tidalab/4.0.0') !== false
@@ -93,5 +94,19 @@ class AppController extends Controller
                 'android_download_url' => config('v2board.android_download_url')
             ]
         ]);
+    } */
+
+    public function getVersion(Request $request)
+    {
+        $platform = strtolower($request->header('X-Client-Platform'));
+    
+        return response([
+            'data' => [
+                'platform' => $platform,
+                'version' => config("v2board.{$platform}_version"),
+                'download_url' => config("v2board.{$platform}_download_url"),
+            ]
+        ]);
     }
+    
 }

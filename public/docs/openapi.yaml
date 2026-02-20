@@ -1,0 +1,5959 @@
+openapi: 3.0.3
+info:
+  title: V2Board
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/documentation:
+    get:
+      summary: 'Display Swagger API page.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>L5 Swagger UI</title>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://localhost/docs/asset/swagger-ui.css?v=295c0e8b75154a3a99d297333d3e9cb9\">\n    <link rel=\"icon\" type=\"image/png\" href=\"http://localhost/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6\" sizes=\"32x32\"/>\n    <link rel=\"icon\" type=\"image/png\" href=\"http://localhost/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384\" sizes=\"16x16\"/>\n    <style>\n    html\n    {\n        box-sizing: border-box;\n        overflow: -moz-scrollbars-vertical;\n        overflow-y: scroll;\n    }\n    *,\n    *:before,\n    *:after\n    {\n        box-sizing: inherit;\n    }\n\n    body {\n      margin:0;\n      background: #fafafa;\n    }\n    </style>\n    </head>\n\n<body >\n<div id=\"swagger-ui\"></div>\n\n<script src=\"http://localhost/docs/asset/swagger-ui-bundle.js?v=3abe734b0cfda5cb259bd02f796042d1\"></script>\n<script src=\"http://localhost/docs/asset/swagger-ui-standalone-preset.js?v=e309748b3af627b5137cb7a559853117\"></script>\n<script>\n    window.onload = function() {\n        // Build a system\n        const ui = SwaggerUIBundle({\n            dom_id: '#swagger-ui',\n            url: \"http://localhost/docs?api-docs.json\",\n            operationsSorter: null,\n            configUrl: null,\n            validatorUrl: null,\n            oauth2RedirectUrl: \"http://localhost/api/oauth2-callback\",\n\n            requestInterceptor: function(request) {\n                request.headers['X-CSRF-TOKEN'] = '';\n                return request;\n            },\n\n            presets: [\n                SwaggerUIBundle.presets.apis,\n                SwaggerUIStandalonePreset\n            ],\n\n            plugins: [\n                SwaggerUIBundle.plugins.DownloadUrl\n            ],\n\n            layout: \"StandaloneLayout\",\n            docExpansion : \"none\",\n            deepLinking: true,\n            filter: true,\n            persistAuthorization: \"false\",\n\n        })\n\n        window.ui = ui\n\n            }\n</script>\n</body>\n</html>\n"
+      tags:
+        - Endpoints
+      security: []
+  /api/oauth2-callback:
+    get:
+      summary: 'Display Oauth2 callback pages.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "<!doctype html>\n<html lang=\"en-US\">\n<body>\n<script src=\"oauth2-redirect.js\"></script>\n</body>\n</html>\n"
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/config/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/config/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                invite_force:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                invite_commission:
+                  type: integer
+                  description: ''
+                  example: 1
+                invite_gen_limit:
+                  type: integer
+                  description: ''
+                  example: 9
+                invite_never_expire:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                commission_first_time_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                commission_auto_check_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                commission_withdraw_limit:
+                  type: number
+                  description: ''
+                  example: 58369340.843701
+                commission_withdraw_method:
+                  type: array
+                  description: ''
+                  example:
+                    - quam
+                  items:
+                    type: string
+                withdraw_close_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                commission_distribution_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                commission_distribution_l1:
+                  type: number
+                  description: ''
+                  example: 43.4125276
+                commission_distribution_l2:
+                  type: number
+                  description: ''
+                  example: 1166101.2354617
+                commission_distribution_l3:
+                  type: number
+                  description: ''
+                  example: 5208107.999255
+                logo:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'http://www.hill.info/repellendus-perspiciatis-quo-beatae-qui-explicabo-eius-qui-accusantium'
+                force_https:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                stop_register:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                app_name:
+                  type: string
+                  description: ''
+                  example: null
+                app_description:
+                  type: string
+                  description: ''
+                  example: null
+                app_url:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'https://parisian.info/consequuntur-est-aut-et-voluptatem.html'
+                subscribe_url:
+                  type: string
+                  description: ''
+                  example: null
+                try_out_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                try_out_plan_id:
+                  type: integer
+                  description: ''
+                  example: 9
+                try_out_hour:
+                  type: number
+                  description: ''
+                  example: 1513709.83
+                tos_url:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'http://www.bartoletti.com/'
+                currency:
+                  type: string
+                  description: ''
+                  example: null
+                currency_symbol:
+                  type: string
+                  description: ''
+                  example: null
+                plan_change_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                reset_traffic_method:
+                  type: string
+                  description: 'Must be one of <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, or <code>4</code>.'
+                  example: '3'
+                surplus_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                new_order_event_id:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                renew_order_event_id:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                change_order_event_id:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                show_info_to_server_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                server_token:
+                  type: string
+                  description: validation.min.
+                  example: gejq
+                server_pull_interval:
+                  type: integer
+                  description: ''
+                  example: 16
+                server_push_interval:
+                  type: integer
+                  description: ''
+                  example: 5
+                frontend_theme:
+                  type: string
+                  description: ''
+                  example: null
+                frontend_theme_sidebar:
+                  type: string
+                  description: 'Must be one of <code>dark</code> or <code>light</code>.'
+                  example: dark
+                frontend_theme_header:
+                  type: string
+                  description: 'Must be one of <code>dark</code> or <code>light</code>.'
+                  example: light
+                frontend_theme_color:
+                  type: string
+                  description: 'Must be one of <code>default</code>, <code>darkblue</code>, <code>black</code>, or <code>green</code>.'
+                  example: green
+                frontend_background_url:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'http://www.lubowitz.org/iusto-voluptas-non-fugiat-possimus-quia'
+                email_template:
+                  type: string
+                  description: ''
+                  example: null
+                email_host:
+                  type: string
+                  description: ''
+                  example: null
+                email_port:
+                  type: string
+                  description: ''
+                  example: null
+                email_username:
+                  type: string
+                  description: ''
+                  example: null
+                email_password:
+                  type: string
+                  description: ''
+                  example: null
+                email_encryption:
+                  type: string
+                  description: ''
+                  example: null
+                email_from_address:
+                  type: string
+                  description: ''
+                  example: null
+                telegram_bot_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                telegram_bot_token:
+                  type: string
+                  description: ''
+                  example: null
+                telegram_discuss_id:
+                  type: string
+                  description: ''
+                  example: null
+                telegram_channel_id:
+                  type: string
+                  description: ''
+                  example: null
+                telegram_discuss_link:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'https://www.koelpin.com/molestiae-dignissimos-rerum-consequatur-atque-perferendis-beatae-eius-ut'
+                windows_version:
+                  type: string
+                  description: ''
+                  example: null
+                windows_download_url:
+                  type: string
+                  description: ''
+                  example: null
+                macos_version:
+                  type: string
+                  description: ''
+                  example: null
+                macos_download_url:
+                  type: string
+                  description: ''
+                  example: null
+                android_version:
+                  type: string
+                  description: ''
+                  example: null
+                android_download_url:
+                  type: string
+                  description: ''
+                  example: null
+                email_whitelist_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                email_whitelist_suffix:
+                  type: array
+                  description: ''
+                  example:
+                    - et
+                  items:
+                    type: string
+                email_gmail_limit_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                recaptcha_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                recaptcha_key:
+                  type: string
+                  description: ''
+                  example: null
+                recaptcha_site_key:
+                  type: string
+                  description: ''
+                  example: null
+                email_verify:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                safe_mode_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                register_limit_by_ip_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                register_limit_count:
+                  type: integer
+                  description: ''
+                  example: 19
+                register_limit_expire:
+                  type: integer
+                  description: ''
+                  example: 11
+                secure_path:
+                  type: string
+                  description: 'validation.regex validation.min.'
+                  example: ohducnmx
+                password_limit_enable:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                password_limit_count:
+                  type: integer
+                  description: ''
+                  example: 15
+                password_limit_expire:
+                  type: integer
+                  description: ''
+                  example: 5
+      security: []
+  /api/v1/e2e5c2f2/config/getEmailTemplate:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/config/getThemeTemplate:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/config/setTelegramWebhook:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/config/testSendMail:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/plan/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/plan/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: aliquam
+                content:
+                  type: string
+                  description: ''
+                  example: null
+                group_id:
+                  type: string
+                  description: ''
+                  example: rerum
+                transfer_enable:
+                  type: string
+                  description: ''
+                  example: officia
+                month_price:
+                  type: integer
+                  description: ''
+                  example: 4
+                quarter_price:
+                  type: integer
+                  description: ''
+                  example: 6
+                half_year_price:
+                  type: integer
+                  description: ''
+                  example: 16
+                year_price:
+                  type: integer
+                  description: ''
+                  example: 12
+                two_year_price:
+                  type: integer
+                  description: ''
+                  example: 3
+                three_year_price:
+                  type: integer
+                  description: ''
+                  example: 2
+                onetime_price:
+                  type: integer
+                  description: ''
+                  example: 5
+                reset_price:
+                  type: integer
+                  description: ''
+                  example: 1
+                reset_traffic_method:
+                  type: integer
+                  description: 'Must be one of <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, or <code>4</code>.'
+                  example: '1'
+                capacity_limit:
+                  type: integer
+                  description: ''
+                  example: 1
+                speed_limit:
+                  type: integer
+                  description: ''
+                  example: 8
+              required:
+                - name
+                - group_id
+                - transfer_enable
+      security: []
+  /api/v1/e2e5c2f2/plan/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/plan/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                renew:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+      security: []
+  /api/v1/e2e5c2f2/plan/sort:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plan_ids:
+                  type: array
+                  description: ''
+                  example:
+                    - et
+                  items:
+                    type: string
+              required:
+                - plan_ids
+      security: []
+  /api/v1/e2e5c2f2/server/group/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/group/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/group/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/route/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/route/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                remarks:
+                  type: string
+                  description: ''
+                  example: molestias
+                match:
+                  type: array
+                  description: ''
+                  example:
+                    - aut
+                  items:
+                    type: string
+                action:
+                  type: string
+                  description: 'Must be one of <code>block</code> or <code>dns</code>.'
+                  example: block
+                action_value:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - remarks
+                - match
+                - action
+      security: []
+  /api/v1/e2e5c2f2/server/route/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/manage/getNodes:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/manage/sort:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/trojan/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: ''
+                  example: null
+                name:
+                  type: string
+                  description: ''
+                  example: ea
+                group_id:
+                  type: array
+                  description: ''
+                  example:
+                    - ducimus
+                  items:
+                    type: string
+                route_id:
+                  type: array
+                  description: ''
+                  example:
+                    - laudantium
+                  items:
+                    type: string
+                parent_id:
+                  type: integer
+                  description: ''
+                  example: 17
+                host:
+                  type: string
+                  description: ''
+                  example: voluptas
+                port:
+                  type: string
+                  description: ''
+                  example: consequatur
+                server_port:
+                  type: string
+                  description: ''
+                  example: cumque
+                allow_insecure:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                server_name:
+                  type: string
+                  description: ''
+                  example: null
+                tags:
+                  type: array
+                  description: ''
+                  example:
+                    - molestiae
+                  items:
+                    type: string
+                rate:
+                  type: number
+                  description: ''
+                  example: 170093754.79125
+              required:
+                - name
+                - group_id
+                - host
+                - port
+                - server_port
+                - rate
+      security: []
+  /api/v1/e2e5c2f2/server/trojan/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/trojan/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+      security: []
+  /api/v1/e2e5c2f2/server/trojan/copy:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/trojan/viewConfig:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/vmess/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: ''
+                  example: null
+                name:
+                  type: string
+                  description: ''
+                  example: vitae
+                group_id:
+                  type: array
+                  description: ''
+                  example:
+                    - ut
+                  items:
+                    type: string
+                route_id:
+                  type: array
+                  description: ''
+                  example:
+                    - quasi
+                  items:
+                    type: string
+                parent_id:
+                  type: integer
+                  description: ''
+                  example: 6
+                host:
+                  type: string
+                  description: ''
+                  example: aliquam
+                port:
+                  type: string
+                  description: ''
+                  example: autem
+                server_port:
+                  type: string
+                  description: ''
+                  example: nam
+                tls:
+                  type: string
+                  description: ''
+                  example: rerum
+                tags:
+                  type: array
+                  description: ''
+                  example:
+                    - maxime
+                  items:
+                    type: string
+                rate:
+                  type: number
+                  description: ''
+                  example: 41196982.652598
+                network:
+                  type: string
+                  description: 'Must be one of <code>tcp</code>, <code>kcp</code>, <code>ws</code>, <code>http</code>, <code>domainsocket</code>, <code>quic</code>, or <code>grpc</code>.'
+                  example: grpc
+                networkSettings:
+                  type: array
+                  description: ''
+                  example:
+                    - dolorem
+                  items:
+                    type: string
+                ruleSettings:
+                  type: array
+                  description: ''
+                  example:
+                    - quibusdam
+                  items:
+                    type: string
+                tlsSettings:
+                  type: array
+                  description: ''
+                  example:
+                    - facere
+                  items:
+                    type: string
+                dnsSettings:
+                  type: array
+                  description: ''
+                  example:
+                    - dolores
+                  items:
+                    type: string
+              required:
+                - name
+                - group_id
+                - host
+                - port
+                - server_port
+                - tls
+                - rate
+                - network
+      security: []
+  /api/v1/e2e5c2f2/server/vmess/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/vmess/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+      security: []
+  /api/v1/e2e5c2f2/server/vmess/copy:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/shadowsocks/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: ''
+                  example: null
+                name:
+                  type: string
+                  description: ''
+                  example: voluptatibus
+                group_id:
+                  type: array
+                  description: ''
+                  example:
+                    - magnam
+                  items:
+                    type: string
+                parent_id:
+                  type: integer
+                  description: ''
+                  example: 19
+                route_id:
+                  type: array
+                  description: ''
+                  example:
+                    - laudantium
+                  items:
+                    type: string
+                host:
+                  type: string
+                  description: ''
+                  example: ut
+                port:
+                  type: string
+                  description: ''
+                  example: reiciendis
+                server_port:
+                  type: string
+                  description: ''
+                  example: consequatur
+                cipher:
+                  type: string
+                  description: 'Must be one of <code>aes-128-gcm</code>, <code>aes-192-gcm</code>, <code>aes-256-gcm</code>, <code>chacha20-ietf-poly1305</code>, <code>2022-blake3-aes-128-gcm</code>, or <code>2022-blake3-aes-256-gcm</code>.'
+                  example: aes-256-gcm
+                obfs:
+                  type: string
+                  description: 'Must be one of <code>http</code>.'
+                  example: http
+                obfs_settings:
+                  type: array
+                  description: ''
+                  example:
+                    - molestiae
+                  items:
+                    type: string
+                tags:
+                  type: array
+                  description: ''
+                  example:
+                    - reiciendis
+                  items:
+                    type: string
+                rate:
+                  type: number
+                  description: ''
+                  example: 22871857.0
+              required:
+                - name
+                - group_id
+                - host
+                - port
+                - server_port
+                - cipher
+                - rate
+      security: []
+  /api/v1/e2e5c2f2/server/shadowsocks/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/shadowsocks/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+      security: []
+  /api/v1/e2e5c2f2/server/shadowsocks/copy:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/hysteria/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: ''
+                  example: null
+                name:
+                  type: string
+                  description: ''
+                  example: omnis
+                group_id:
+                  type: array
+                  description: ''
+                  example:
+                    - sed
+                  items:
+                    type: string
+                route_id:
+                  type: array
+                  description: ''
+                  example:
+                    - a
+                  items:
+                    type: string
+                parent_id:
+                  type: integer
+                  description: ''
+                  example: 20
+                host:
+                  type: string
+                  description: ''
+                  example: itaque
+                port:
+                  type: string
+                  description: ''
+                  example: quo
+                server_port:
+                  type: string
+                  description: ''
+                  example: reiciendis
+                tags:
+                  type: array
+                  description: ''
+                  example:
+                    - nulla
+                  items:
+                    type: string
+                rate:
+                  type: number
+                  description: ''
+                  example: 115506.377804
+                up_mbps:
+                  type: number
+                  description: validation.min.
+                  example: 0
+                down_mbps:
+                  type: number
+                  description: validation.min.
+                  example: 1
+                server_name:
+                  type: string
+                  description: ''
+                  example: null
+                insecure:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+              required:
+                - name
+                - group_id
+                - host
+                - port
+                - server_port
+                - rate
+                - up_mbps
+                - down_mbps
+                - insecure
+      security: []
+  /api/v1/e2e5c2f2/server/hysteria/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/server/hysteria/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                show:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+      security: []
+  /api/v1/e2e5c2f2/server/hysteria/copy:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/order/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: array
+                  description: ''
+                  example:
+                    - []
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        description: 'Must be one of <code>email</code>, <code>trade_no</code>, <code>status</code>, <code>commission_status</code>, <code>user_id</code>, <code>invite_user_id</code>, <code>callback_no</code>, or <code>commission_balance</code>.'
+                        example: status
+                      condition:
+                        type: string
+                        description: 'Must be one of <code>></code>, <code><</code>, <code>=</code>, <code>>=</code>, <code><=</code>, <code>模糊</code>, or <code>!=</code>.'
+                        example: '<'
+                      value:
+                        type: string
+                        description: ''
+                        example: null
+                    required:
+                      - key
+                      - condition
+      security: []
+  /api/v1/e2e5c2f2/order/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'Must be one of <code>0</code>, <code>1</code>, <code>2</code>, or <code>3</code>.'
+                  example: '1'
+                commission_status:
+                  type: string
+                  description: 'Must be one of <code>0</code>, <code>1</code>, or <code>3</code>.'
+                  example: '3'
+      security: []
+  /api/v1/e2e5c2f2/order/assign:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plan_id:
+                  type: string
+                  description: ''
+                  example: nemo
+                email:
+                  type: string
+                  description: ''
+                  example: debitis
+                total_amount:
+                  type: string
+                  description: ''
+                  example: recusandae
+                period:
+                  type: string
+                  description: 'Must be one of <code>month_price</code>, <code>quarter_price</code>, <code>half_year_price</code>, <code>year_price</code>, <code>two_year_price</code>, <code>three_year_price</code>, <code>onetime_price</code>, or <code>reset_price</code>.'
+                  example: month_price
+              required:
+                - plan_id
+                - email
+                - total_amount
+                - period
+      security: []
+  /api/v1/e2e5c2f2/order/paid:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/order/cancel:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/order/detail:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/user/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: array
+                  description: ''
+                  example:
+                    - []
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        description: 'Must be one of <code>id</code>, <code>email</code>, <code>transfer_enable</code>, <code>d</code>, <code>expired_at</code>, <code>uuid</code>, <code>token</code>, <code>invite_by_email</code>, <code>invite_user_id</code>, <code>plan_id</code>, <code>banned</code>, <code>remarks</code>, or <code>is_admin</code>.'
+                        example: uuid
+                      condition:
+                        type: string
+                        description: 'Must be one of <code>></code>, <code><</code>, <code>=</code>, <code>>=</code>, <code><=</code>, <code>模糊</code>, or <code>!=</code>.'
+                        example: '='
+                      value:
+                        type: string
+                        description: ''
+                        example: deserunt
+                    required:
+                      - key
+                      - condition
+                      - value
+      security: []
+  /api/v1/e2e5c2f2/user/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: validation.email.
+                  example: renner.helena@example.org
+                password:
+                  type: string
+                  description: validation.min.
+                  example: bmoztpa
+                transfer_enable:
+                  type: number
+                  description: ''
+                  example: 16.76
+                expired_at:
+                  type: integer
+                  description: ''
+                  example: 8
+                banned:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                plan_id:
+                  type: integer
+                  description: ''
+                  example: 9
+                commission_rate:
+                  type: integer
+                  description: 'validation.min validation.max.'
+                  example: 5
+                discount:
+                  type: integer
+                  description: 'validation.min validation.max.'
+                  example: 51
+                is_admin:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                is_staff:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                u:
+                  type: integer
+                  description: ''
+                  example: 13
+                d:
+                  type: integer
+                  description: ''
+                  example: 17
+                balance:
+                  type: integer
+                  description: ''
+                  example: 1
+                commission_type:
+                  type: integer
+                  description: ''
+                  example: 16
+                commission_balance:
+                  type: integer
+                  description: ''
+                  example: 2
+                remarks:
+                  type: string
+                  description: ''
+                  example: null
+                speed_limit:
+                  type: integer
+                  description: ''
+                  example: 14
+              required:
+                - email
+                - banned
+                - is_admin
+                - is_staff
+      security: []
+  /api/v1/e2e5c2f2/user/getUserInfoById:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/user/generate:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                generate_count:
+                  type: integer
+                  description: validation.max.
+                  example: 87
+                expired_at:
+                  type: integer
+                  description: ''
+                  example: 16
+                plan_id:
+                  type: integer
+                  description: ''
+                  example: 19
+                email_prefix:
+                  type: string
+                  description: ''
+                  example: null
+                email_suffix:
+                  type: string
+                  description: ''
+                  example: perferendis
+                password:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - email_suffix
+      security: []
+  /api/v1/e2e5c2f2/user/dumpCSV:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/user/sendMail:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subject:
+                  type: string
+                  description: ''
+                  example: aut
+                content:
+                  type: string
+                  description: ''
+                  example: sunt
+              required:
+                - subject
+                - content
+      security: []
+  /api/v1/e2e5c2f2/user/ban:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/user/resetSecret:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/stat/getStat:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_at:
+                  type: string
+                  description: ''
+                  example: null
+                end_at:
+                  type: string
+                  description: ''
+                  example: null
+      security: []
+  /api/v1/e2e5c2f2/stat/getOverride:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/stat/getServerLastRank:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/stat/getOrder:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/stat/getStatUser:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: ''
+                  example: 5
+              required:
+                - user_id
+      security: []
+  /api/v1/e2e5c2f2/stat/getRanking:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: 'Must be one of <code>server_traffic_rank</code>, <code>user_consumption_rank</code>, or <code>invite_rank</code>.'
+                  example: server_traffic_rank
+                start_at:
+                  type: string
+                  description: ''
+                  example: null
+                end_at:
+                  type: string
+                  description: ''
+                  example: null
+                limit:
+                  type: integer
+                  description: ''
+                  example: 6
+              required:
+                - type
+      security: []
+  /api/v1/e2e5c2f2/stat/getStatRecord:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: 'Must be one of <code>paid_total</code>, <code>commission_total</code>, or <code>register_count</code>.'
+                  example: commission_total
+                start_at:
+                  type: string
+                  description: ''
+                  example: null
+                end_at:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - type
+      security: []
+  /api/v1/e2e5c2f2/notice/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/notice/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: placeat
+                content:
+                  type: string
+                  description: ''
+                  example: ea
+                img_url:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'http://www.stokes.com/illum-quisquam-quaerat-doloremque-aut-aut-nobis-alias.html'
+                tags:
+                  type: array
+                  description: ''
+                  example:
+                    - velit
+                  items:
+                    type: string
+              required:
+                - title
+                - content
+      security: []
+  /api/v1/e2e5c2f2/notice/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/notice/show:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/ticket/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/ticket/reply:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/ticket/close:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/coupon/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/coupon/generate:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                generate_count:
+                  type: integer
+                  description: validation.max.
+                  example: 328
+                name:
+                  type: string
+                  description: ''
+                  example: et
+                type:
+                  type: string
+                  description: 'Must be one of <code>1</code> or <code>2</code>.'
+                  example: '1'
+                value:
+                  type: integer
+                  description: ''
+                  example: 5
+                started_at:
+                  type: integer
+                  description: ''
+                  example: 4
+                ended_at:
+                  type: integer
+                  description: ''
+                  example: 12
+                limit_use:
+                  type: integer
+                  description: ''
+                  example: 16
+                limit_use_with_user:
+                  type: integer
+                  description: ''
+                  example: 8
+                limit_plan_ids:
+                  type: array
+                  description: ''
+                  example:
+                    - expedita
+                  items:
+                    type: string
+                limit_period:
+                  type: array
+                  description: ''
+                  example:
+                    - voluptas
+                  items:
+                    type: string
+                code:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - name
+                - type
+                - value
+                - started_at
+                - ended_at
+      security: []
+  /api/v1/e2e5c2f2/coupon/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/coupon/show:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/knowledge/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/knowledge/getCategory:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/knowledge/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+                  description: ''
+                  example: nobis
+                language:
+                  type: string
+                  description: ''
+                  example: deserunt
+                title:
+                  type: string
+                  description: ''
+                  example: consectetur
+                body:
+                  type: string
+                  description: ''
+                  example: tempora
+              required:
+                - category
+                - language
+                - title
+                - body
+      security: []
+  /api/v1/e2e5c2f2/knowledge/show:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/knowledge/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/knowledge/sort:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                knowledge_ids:
+                  type: array
+                  description: ''
+                  example:
+                    - expedita
+                  items:
+                    type: string
+              required:
+                - knowledge_ids
+      security: []
+  /api/v1/e2e5c2f2/payment/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/payment/getPaymentMethods:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/payment/getPaymentForm:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/payment/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: quis
+                icon:
+                  type: string
+                  description: ''
+                  example: null
+                payment:
+                  type: string
+                  description: ''
+                  example: neque
+                config:
+                  type: string
+                  description: ''
+                  example: qui
+                notify_domain:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'https://www.stanton.com/quis-sit-et-ut-earum-voluptatum-molestiae-aut'
+                handling_fee_fixed:
+                  type: integer
+                  description: ''
+                  example: 8
+                handling_fee_percent:
+                  type: number
+                  description: validation.between.
+                  example: 54
+              required:
+                - name
+                - payment
+                - config
+      security: []
+  /api/v1/e2e5c2f2/payment/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/payment/show:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/payment/sort:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  description: ''
+                  example:
+                    - corporis
+                  items:
+                    type: string
+              required:
+                - ids
+      security: []
+  /api/v1/e2e5c2f2/system/getSystemStatus:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/system/getQueueStats:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/system/getQueueWorkload:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/system/getQueueMasters:
+    get:
+      summary: 'Get all of the master supervisors and their underlying supervisors.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/theme/getThemes:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/e2e5c2f2/theme/saveThemeConfig:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: null
+                config:
+                  type: string
+                  description: ''
+                  example: quod
+              required:
+                - config
+      security: []
+  /api/v1/e2e5c2f2/theme/getThemeConfig:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: null
+      security: []
+  /api/v1/client/subscribe:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'token is null'
+                properties:
+                  message:
+                    type: string
+                    example: 'token is null'
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/client/app/getConfig:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'token is null'
+                properties:
+                  message:
+                    type: string
+                    example: 'token is null'
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/client/app/getVersion:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'token is null'
+                properties:
+                  message:
+                    type: string
+                    example: 'token is null'
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/guest/plan/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data: []
+                properties:
+                  data:
+                    type: array
+                    example: []
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/guest/telegram/webhook:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/v1/guest/payment/notify/{method}/{uuid}':
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: fail
+                properties:
+                  message:
+                    type: string
+                    example: fail
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: method
+        description: ''
+        example: error
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: uuid
+        description: ''
+        example: occaecati
+        required: true
+        schema:
+          type: string
+  /api/v1/guest/comm/config:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    tos_url: null
+                    is_email_verify: 0
+                    is_invite_force: 0
+                    email_whitelist_suffix: 0
+                    is_recaptcha: 0
+                    recaptcha_site_key: null
+                    app_description: null
+                    app_url: null
+                    logo: null
+                properties:
+                  data:
+                    type: object
+                    example:
+                      tos_url: null
+                      is_email_verify: 0
+                      is_invite_force: 0
+                      email_whitelist_suffix: 0
+                      is_recaptcha: 0
+                      recaptcha_site_key: null
+                      app_description: null
+                      app_url: null
+                      logo: null
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/passport/auth/register:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: validation.email.
+                  example: lconroy@example.com
+                password:
+                  type: string
+                  description: validation.min.
+                  example: isdgoqxq
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/passport/auth/login:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: validation.email.
+                  example: lilian.borer@example.org
+                password:
+                  type: string
+                  description: validation.min.
+                  example: bjrgn
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/passport/auth/token2Login:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ''
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/passport/auth/forget:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: validation.email.
+                  example: qlemke@example.org
+                password:
+                  type: string
+                  description: validation.min.
+                  example: tafu
+                email_code:
+                  type: string
+                  description: ''
+                  example: ducimus
+              required:
+                - email
+                - password
+                - email_code
+      security: []
+  /api/v1/passport/auth/getQuickLoginUrl:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/passport/auth/loginWithMailLink:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: validation.email.
+                  example: jsmitham@example.org
+                redirect:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - email
+      security: []
+  /api/v1/passport/comm/sendEmailVerify:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: validation.email.
+                  example: anahi.gorczany@example.com
+              required:
+                - email
+      security: []
+  /api/v1/passport/comm/pv:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/v1/server/{class}/{action}':
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 遇到了些问题，我们正在进行处理
+                properties:
+                  message:
+                    type: string
+                    example: 遇到了些问题，我们正在进行处理
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: class
+        description: ''
+        example: veritatis
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: action
+        description: ''
+        example: dolore
+        required: true
+        schema:
+          type: string
+  /api/v1/staff/ticket/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/staff/ticket/reply:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/staff/ticket/close:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/staff/user/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: validation.email.
+                  example: braxton.hickle@example.org
+                password:
+                  type: string
+                  description: ''
+                  example: null
+                transfer_enable:
+                  type: number
+                  description: ''
+                  example: 58.6941285
+                expired_at:
+                  type: integer
+                  description: ''
+                  example: 17
+                banned:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '1'
+                plan_id:
+                  type: integer
+                  description: ''
+                  example: 9
+                commission_rate:
+                  type: integer
+                  description: 'validation.min validation.max.'
+                  example: 27
+                discount:
+                  type: integer
+                  description: 'validation.min validation.max.'
+                  example: 74
+                u:
+                  type: integer
+                  description: ''
+                  example: 16
+                d:
+                  type: integer
+                  description: ''
+                  example: 4
+                balance:
+                  type: integer
+                  description: ''
+                  example: 15
+                commission_balance:
+                  type: integer
+                  description: ''
+                  example: 8
+              required:
+                - email
+                - banned
+      security: []
+  /api/v1/staff/user/getUserInfoById:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/staff/user/sendMail:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subject:
+                  type: string
+                  description: ''
+                  example: amet
+                content:
+                  type: string
+                  description: ''
+                  example: et
+              required:
+                - subject
+                - content
+      security: []
+  /api/v1/staff/user/ban:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/staff/plan/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/staff/notice/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/staff/notice/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: ''
+                  example: consequatur
+                content:
+                  type: string
+                  description: ''
+                  example: harum
+                img_url:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'http://www.auer.com/'
+                tags:
+                  type: array
+                  description: ''
+                  example:
+                    - quisquam
+                  items:
+                    type: string
+              required:
+                - title
+                - content
+      security: []
+  /api/v1/staff/notice/drop:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/resetSecurity:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/info:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/changePassword:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                  description: ''
+                  example: illo
+                new_password:
+                  type: string
+                  description: validation.min.
+                  example: vviwi
+              required:
+                - old_password
+                - new_password
+      security: []
+  /api/v1/user/update:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                remind_expire:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+                remind_traffic:
+                  type: string
+                  description: 'Must be one of <code>0</code> or <code>1</code>.'
+                  example: '0'
+      security: []
+  /api/v1/user/getSubscribe:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/getStat:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/checkLogin:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/transfer:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transfer_amount:
+                  type: integer
+                  description: validation.min.
+                  example: 1
+              required:
+                - transfer_amount
+      security: []
+  /api/v1/user/getQuickLoginUrl:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/getActiveSession:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/removeActiveSession:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/order/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plan_id:
+                  type: string
+                  description: ''
+                  example: earum
+                period:
+                  type: string
+                  description: 'Must be one of <code>month_price</code>, <code>quarter_price</code>, <code>half_year_price</code>, <code>year_price</code>, <code>two_year_price</code>, <code>three_year_price</code>, <code>onetime_price</code>, or <code>reset_price</code>.'
+                  example: quarter_price
+              required:
+                - plan_id
+                - period
+      security: []
+  /api/v1/user/order/checkout:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/order/check:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/order/detail:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/order/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/order/getPaymentMethod:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/order/cancel:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/plan/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/invite/save:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/invite/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/invite/details:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/notice/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/ticket/reply:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/ticket/close:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/ticket/save:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subject:
+                  type: string
+                  description: ''
+                  example: ipsum
+                level:
+                  type: string
+                  description: 'Must be one of <code>0</code>, <code>1</code>, or <code>2</code>.'
+                  example: '2'
+                message:
+                  type: string
+                  description: ''
+                  example: eos
+              required:
+                - subject
+                - level
+                - message
+      security: []
+  /api/v1/user/ticket/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/ticket/withdraw:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                withdraw_method:
+                  type: string
+                  description: ''
+                  example: qui
+                withdraw_account:
+                  type: string
+                  description: ''
+                  example: quia
+              required:
+                - withdraw_method
+                - withdraw_account
+      security: []
+  /api/v1/user/server/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/coupon/check:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/telegram/getBotInfo:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/comm/config:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/comm/getStripePublicKey:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/knowledge/fetch:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/user/stat/getTrafficLog:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 未登录或登陆已过期
+                properties:
+                  message:
+                    type: string
+                    example: 未登录或登陆已过期
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''
